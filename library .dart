@@ -1,29 +1,54 @@
-import 'Books.dart';
-import 'Userd.dart';
-
+import 'books.dart';
+import 'userd.dart';
+// library has list of Books class and list of Userd class
 class Library {
-  
-  List <Books> books = [];
-  List <Userd> users = [];
-  
-   
-  addBook(Books book){
+  List<Books> _books = [];
+  List<Userd> _users = [];
 
-   books.add(book);
-   print(books);
+  Library(this._books, this._users);
+  // fun to add book to Books list by _books obj
+  addBook(Books book) {
+    _books.add(book);
+    print(_books);
+  }
+  // fun to add user to Userd list by _users obj
+  addUser(Userd user) {
+    _users.add(user);
+    print(_users);
   }
 
-  Books returnBook(Books book){
-    
-   return books.elementAt(book.id);
+  returnBook(int book_id, String bookName, String userName, int userId) {
+    Books book = Books(book_id, bookName, false);
+    Userd user = Userd(userId, userName, book);
+    print("the book named : " +
+        book.getBook() +
+        " is returned by : " +
+        user.getName());
   }
 
-   borrowBook(Books book , Userd user){
-
-   print("this book named :" + book.title + "borrowed by :" + user.name);
+  borrowBook(String bookName, String userName, int bookId, int userId) {
+    Books book = Books(bookId, bookName, true);
+    Userd user = Userd(userId, userName, book);
+    book.displayInfo();
+    user.displayInfo();
   }
-//  displayInfo).
-// 4- Add books, and users and perform some operations then 
-//      display the final state.
+
+  displayInfo(int userId, int bookId) {
+    Books book = this._books.elementAt(bookId);
+    book.displayInfo();
+    Userd user = this._users.elementAt(userId);
+    user.displayInfo();
+  }
+
+  returnBooks() {
+    this._books.forEach((book) {
+      print(book.getBook().toString());
+    });
+  }
+
+  returnUsers() {
+    this._users.forEach((user) {
+      print(user.getName().toString());
+    });
+  }
 }
-
